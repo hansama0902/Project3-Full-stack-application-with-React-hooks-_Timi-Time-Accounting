@@ -4,8 +4,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
-import indexRouter from "./routes/index.js";
+import transactionRouter from "./routes/transactionRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,11 +17,12 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use("/api/projects", indexRouter);
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.use("/api/transaction", transactionRouter);
+app.use("/api/user", userRouter);
+app.use(express.static(path.join(__dirname, "frontend/dist")));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
 });
 
 export default app;

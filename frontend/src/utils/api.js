@@ -1,27 +1,73 @@
-const API_URL = "http://localhost:5000/api/projects"; // 你的后端API
+const API_URL = "/api"; // ✅ 直接使用相对路径，Vite 会自动代理
 
-// 模拟数据
-const fakeTransactions = [
-  { _id: "1", amount: 500, category: "Salary", description: "Monthly Salary", type: "income", account: "Personal" },
-  { _id: "2", amount: 200, category: "Groceries", description: "Supermarket", type: "expense", account: "Personal" },
-  { _id: "3", amount: 100, category: "Transport", description: "Bus Ticket", type: "expense", account: "Business" },
-  { _id: "4", amount: 1000, category: "Freelance", description: "Project Payment", type: "income", account: "Business" },
-];
+// ✅ 获取所有交易数据
+export const fetchTransactions = async () => {
+  try {
+    const response = await fetch(`${API_URL}/transaction`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching transaction:", error);
+    return [];
+  }
+};
 
-// 模拟获取交易数据
-export const fetchTransactions = () =>
-  new Promise((resolve) => setTimeout(() => resolve(fakeTransactions), 500));
+// ✅ 添加交易
+export const createTransaction = async (transaction) => {
+  try {
+    const response = await fetch(`${API_URL}/transaction`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(transaction),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error adding transaction:", error);
+    return null;
+  }
+};
 
-// 模拟添加交易数据
-export const createTransaction = (transaction) =>
-  new Promise((resolve) => {
-    fakeTransactions.push({ ...transaction, _id: String(fakeTransactions.length + 1) });
-    resolve({ success: true });
-  });
+// ✅ 删除交易
+export const deleteTransaction = async (id) => {
+  try {
+    await fetch(`${API_URL}/transaction/${id}`, { method: "DELETE" });
+  } catch (error) {
+    console.error("Error deleting transaction:", error);
+  }
+};
 
-// 模拟删除交易数据
-export const deleteTransaction = (id) =>
-  new Promise((resolve) => {
-    resolve({ success: true });
-  });
+// ✅ 获取所有用户
+export const fetchUsers = async () => {
+  try {
+    const response = await fetch(`${API_URL}/user`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return [];
+  }
+};
+
+export const fetchUser = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/user/${userId}`);
+    if (!response.ok) throw new Error("Failed to fetch user data");
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return null; 
+  }
+};
+
+export const updateUserGoal = async (userId, goalAmount) => {
+  try {
+    await fetch(`${API_URL}/user/${userId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ goalAmount }), 
+    });
+  } catch (error) {
+    console.error("Error updating user goal:", error);
+  }
+};
+
+
 

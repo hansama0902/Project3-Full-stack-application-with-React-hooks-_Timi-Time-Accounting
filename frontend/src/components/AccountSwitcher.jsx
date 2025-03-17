@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Dropdown, Button, Form, Modal } from "react-bootstrap";
 
-const AccountSwitcher = ({ userList, currentUser, onSwitch, onManageUsers }) => {
+const AccountSwitcher = ({ userList = [], currentUser = "Guest", onSwitch, onManageUsers }) => {
   const [selectedUser, setSelectedUser] = useState(currentUser);
   const [showModal, setShowModal] = useState(false);
   const [newUser, setNewUser] = useState("");
@@ -31,11 +31,15 @@ const AccountSwitcher = ({ userList, currentUser, onSwitch, onManageUsers }) => 
       <Dropdown>
         <Dropdown.Toggle variant="primary">{selectedUser}</Dropdown.Toggle>
         <Dropdown.Menu>
-          {userList.map((user) => (
-            <Dropdown.Item key={user} onClick={() => handleSwitch(user)}>
-              {user}
-            </Dropdown.Item>
-          ))}
+          {userList.length > 0 ? (
+            userList.map((user) => (
+              <Dropdown.Item key={user} onClick={() => handleSwitch(user)}>
+                {user}
+              </Dropdown.Item>
+            ))
+          ) : (
+            <Dropdown.Item disabled>No Users Available</Dropdown.Item>
+          )}
         </Dropdown.Menu>
       </Dropdown>
 
@@ -43,8 +47,8 @@ const AccountSwitcher = ({ userList, currentUser, onSwitch, onManageUsers }) => 
         Manage Users
       </Button>
 
-      {/* ✅ 账户管理模态框 */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      {/* ✅ 账户管理模态框，修复 `ref` 问题 */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} enforceFocus={false}>
         <Modal.Header closeButton>
           <Modal.Title>Manage Accounts</Modal.Title>
         </Modal.Header>
@@ -59,14 +63,6 @@ const AccountSwitcher = ({ userList, currentUser, onSwitch, onManageUsers }) => 
             />
             <Button className="mt-2" onClick={handleAddUser}>Add User</Button>
           </Form.Group>
-
-          <h5 className="mt-3">Existing Users</h5>
-          {userList.map(user => (
-            <div key={user} className="d-flex justify-content-between align-items-center mt-2">
-              <span>{user}</span>
-              <Button variant="danger" size="sm" onClick={() => handleDeleteUser(user)}>Delete</Button>
-            </div>
-          ))}
         </Modal.Body>
       </Modal>
     </div>
@@ -74,13 +70,19 @@ const AccountSwitcher = ({ userList, currentUser, onSwitch, onManageUsers }) => 
 };
 
 AccountSwitcher.propTypes = {
-  userList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentUser: PropTypes.string.isRequired,
+  userList: PropTypes.arrayOf(PropTypes.string),
+  currentUser: PropTypes.string,
   onSwitch: PropTypes.func.isRequired,
   onManageUsers: PropTypes.func.isRequired,
 };
 
 export default AccountSwitcher;
+
+
+
+
+
+
 
 
 
