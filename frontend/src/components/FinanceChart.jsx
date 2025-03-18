@@ -4,17 +4,14 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } fro
 import { Button } from "react-bootstrap";
 
 const FinanceChart = ({ data }) => {
-  const [chartType, setChartType] = useState("income"); // 默认显示 Expense
+  const [chartType, setChartType] = useState("income"); 
 
-  // ✅ 过滤数据，根据 `chartType` 选择展示 `income` 或 `expense`
   const filteredData = data.filter((t) => t.type === chartType);
 
   return (
     <div className="mt-4">
-      {/* ✅ 添加 FinanceChart 标题 */}
       <h3>Finance Chart</h3>
 
-      {/* ✅ 交换 Show Income 和 Show Expense 位置 */}
       <div className="d-flex justify-content-center mb-3">
         <Button 
           variant={chartType === "income" ? "success" : "outline-success"} 
@@ -31,7 +28,6 @@ const FinanceChart = ({ data }) => {
         </Button>
       </div>
 
-      {/* ✅ 渲染柱状图 */}
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={filteredData}>
           <XAxis dataKey="category" />
@@ -50,7 +46,7 @@ FinanceChart.propTypes = {
     PropTypes.shape({
       category: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
-      type: PropTypes.oneOf(["income", "expense"]).isRequired, // ✅ 确保 `type` 只接受 `income` 或 `expense`
+      type: PropTypes.oneOf(["income", "expense"]).isRequired, 
     })
   ).isRequired,
 };
