@@ -8,7 +8,7 @@ const TransactionList = ({ transactions, onDelete, loading }) => {
     <div className="mt-4">
       <h3>Transaction History</h3>
       {transactions.length === 0 ? (
-        <p className="text-danger">⚠️ No Transactions Found</p>
+        <p className="text-danger">No Transactions Found</p>
       ) : (
         <Table striped bordered hover responsive className="mt-3">
           <thead className="table-dark">

@@ -8,7 +8,6 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
   const [newUser, setNewUser] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // ✅ 加载用户列表
   useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -21,19 +20,16 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
     if (show) loadUsers();
   }, [show]);
 
-  // ✅ 显示成功消息（自动隐藏）
   const showSuccessMessage = (message) => {
     setSuccessMessage(message);
-    setTimeout(() => setSuccessMessage(""), 2000); // 2 秒后隐藏
+    setTimeout(() => setSuccessMessage(""), 2000); 
   };
 
-  // ✅ 添加新用户
   const handleAddUser = async () => {
     if (newUser.trim() === "" || users.includes(newUser)) return;
     try {
       await createUser(newUser);
       
-      // 重新拉取最新用户数据
       const updatedUsersData = await fetchUsers();
       const updatedUsers = updatedUsersData.map((u) => u.userName);
       setUsers(updatedUsers);
@@ -45,21 +41,17 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
     }
   };
 
-  // ✅ 删除用户
   const handleDeleteUser = async (user) => {
     try {
       await deleteUser(user);
-      
-      // 重新拉取最新用户数据
+
       const updatedUsersData = await fetchUsers();
       const updatedUsers = updatedUsersData.map((u) => u.userName);
       setUsers(updatedUsers);
       
       showSuccessMessage(`User "${user}" deleted successfully!`);
 
-      // ✅ 如果当前删除的是选中的用户
       if (user === currentUser) {
-        // ✅ 选择下一个用户，如果没有用户，则重置为空
         onUserChange(updatedUsers.length > 0 ? updatedUsers[0] : "");
       }
     } catch (error) {
@@ -73,10 +65,7 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
         <Modal.Title>Manage Users</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* ✅ 成功消息提示 */}
         {successMessage && <Alert variant="success">{successMessage}</Alert>}
-
-        {/* ✅ 添加新用户 */}
         <Form.Group>
           <Form.Label>Add New User</Form.Label>
           <Form.Control
@@ -89,8 +78,7 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
             Add User
           </Button>
         </Form.Group>
-
-        {/* ✅ 用户列表 */}
+        
         <h5 className="mt-3">Existing Users</h5>
         <ListGroup>
           {users.length > 0 ? (

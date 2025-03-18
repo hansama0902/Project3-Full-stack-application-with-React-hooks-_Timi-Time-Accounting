@@ -14,10 +14,10 @@ const useDashboard = (transactions) => {
   }, [transactions]);
 
   const balance = useMemo(() => {
-    return totalIncome - totalExpenses; // ✅ 计算 Balance
+    return totalIncome - totalExpenses;
   }, [totalIncome, totalExpenses]);
 
-  return { totalIncome, totalExpenses, balance }; // ✅ 现在 balance 也可以被导出了
+  return { totalIncome, totalExpenses, balance };
 };
 
 export default useDashboard;

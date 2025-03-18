@@ -1,97 +1,82 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Form, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
+import { Button, Form, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 
-const ExpenseForm = ({ onAdd, userName }) => {
+const ExpenseForm = ({ onTransactionAdded, userName }) => {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("expense"); // ✅ 切换类型 (默认是支出)
+  const [date, setDate] = useState(""); 
+  const [isIncome, setIsIncome] = useState(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!amount || !category || !description) return;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    onAdd({
-      amount: parseFloat(amount),
+    if (!amount || !category || !description || !date) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const newTransaction = {
+      amount: Number(amount),
       category,
       description,
-      type,
-      userName, // ✅ 绑定用户名
-      date: new Date(),
-    });
+      type: isIncome ? "income" : "expense",
+      userName,
+      date, 
+    };
 
-    setAmount("");
-    setCategory("");
-    setDescription("");
+    try {
+      await onTransactionAdded(newTransaction); 
+      setAmount("");
+      setCategory("");
+      setDescription("");
+      setDate(""); 
+    } catch (error) {
+      console.error("Error adding transaction:", error);
+    }
   };
 
   return (
     <Form onSubmit={handleSubmit} className="mt-3">
-      <h4>Add Transaction</h4>
-
-      {/* ✅ 收入/支出切换按钮 */}
-      <ButtonGroup className="mb-3">
-        <ToggleButton
-          type="radio"
-          variant={type === "income" ? "success" : "outline-success"}
-          checked={type === "income"}
-          onClick={() => setType("income")}
-        >
-          Income
-        </ToggleButton>
-        <ToggleButton
-          type="radio"
-          variant={type === "expense" ? "danger" : "outline-danger"}
-          checked={type === "expense"}
-          onClick={() => setType("expense")}
-        >
-          Expense
-        </ToggleButton>
-      </ButtonGroup>
+      <ToggleButtonGroup type="radio" name="transactionType" className="mb-3" value={isIncome} onChange={() => setIsIncome(!isIncome)}>
+        <ToggleButton variant="success" value={true}>Income</ToggleButton>
+        <ToggleButton variant="danger" value={false}>Expense</ToggleButton>
+      </ToggleButtonGroup>
 
       <Form.Group>
         <Form.Label>Amount</Form.Label>
-        <Form.Control
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Enter amount"
-        />
+        <Form.Control type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" required />
       </Form.Group>
 
-      <Form.Group className="mt-2">
+      <Form.Group>
         <Form.Label>Category</Form.Label>
-        <Form.Control
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          placeholder="e.g., Rent, Salary, Groceries"
-        />
+        <Form.Control type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="e.g., Rent, Salary, Groceries" required />
       </Form.Group>
 
-      <Form.Group className="mt-2">
+      <Form.Group>
         <Form.Label>Description</Form.Label>
-        <Form.Control
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Add details"
-        />
+        <Form.Control type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Add details" required />
       </Form.Group>
 
-      <Button type="submit" variant={type === "income" ? "success" : "danger"} className="mt-3">
-        Add {type === "income" ? "Income" : "Expense"}
+      <Form.Group>
+        <Form.Label>Date</Form.Label>
+        <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+      </Form.Group>
+
+      <Button type="submit" variant={isIncome ? "success" : "danger"} className="mt-3">
+        {isIncome ? "Add Income" : "Add Expense"}
       </Button>
     </Form>
   );
 };
 
 ExpenseForm.propTypes = {
-  onAdd: PropTypes.func.isRequired,
+  onTransactionAdded: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,
 };
 
 export default ExpenseForm;
+
 
 

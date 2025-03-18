@@ -8,13 +8,12 @@ const GoalProgress = ({ userId, balance }) => {
   const [newGoal, setNewGoal] = useState("");
 
   useEffect(() => {
-    setNewGoal(goalAmount || ""); // ✅ 确保 `goalAmount` 变化时更新
+    setNewGoal(goalAmount || ""); 
   }, [goalAmount]);
 
   if (loading) return <p>Loading...</p>;
   if (!userId) return <p className="text-muted">Please select a user.</p>;
 
-  // ✅ 计算目标进度，使用 `balance` 作为基准值
   const progress = goalAmount && balance 
     ? Math.min((balance / Number(goalAmount)) * 100, 100) 
     : 0; 
@@ -44,7 +43,7 @@ const GoalProgress = ({ userId, balance }) => {
 
 GoalProgress.propTypes = {
   userId: PropTypes.string.isRequired,
-  balance: PropTypes.number.isRequired, // ✅ 添加 `balance` 的 PropType 检查
+  balance: PropTypes.number.isRequired, 
 };
 
 export default GoalProgress;

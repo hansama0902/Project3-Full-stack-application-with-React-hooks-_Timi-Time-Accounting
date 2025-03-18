@@ -1,8 +1,8 @@
-const API_URL = "/api"; // ✅ 让 Vite 自动代理
+const API_URL = "/api"; // vite
 
 export const fetchTransactions = async (userName) => {
   if (!userName) {
-    console.warn("⚠️ fetchTransactions called with empty userName");
+    console.warn("fetchTransactions called with empty userName");
     return [];
   }
 
@@ -13,19 +13,18 @@ export const fetchTransactions = async (userName) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("❌ Error fetching transactions:", error);
+    console.error("Error fetching transactions:", error);
     return [];
   }
 };
 
 export const createTransaction = async (transaction) => {
   if (!transaction.userName) {
-    console.warn("⚠️ createTransaction called with empty userName");
+    console.warn("createTransaction called with empty userName");
     return null;
   }
 
   try {
-    // 先检查用户是否存在
     const userResponse = await fetch(`${API_URL}/user/${transaction.userName}`);
     if (!userResponse.ok) {
       throw new Error("User does not exist, cannot create transaction");
@@ -40,7 +39,7 @@ export const createTransaction = async (transaction) => {
     if (!response.ok) throw new Error("Failed to create transaction");
     return await response.json();
   } catch (error) {
-    console.error("❌ Error adding transaction:", error);
+    console.error("Error adding transaction:", error);
     return null;
   }
 };
@@ -48,7 +47,7 @@ export const createTransaction = async (transaction) => {
 
 export const deleteTransaction = async (id) => {
   if (!id) {
-    console.warn("⚠️ deleteTransaction called with empty ID");
+    console.warn("deleteTransaction called with empty ID");
     return;
   }
 
@@ -56,12 +55,10 @@ export const deleteTransaction = async (id) => {
     const response = await fetch(`${API_URL}/transaction/${id}`, { method: "DELETE" });
     if (!response.ok) throw new Error("Failed to delete transaction");
   } catch (error) {
-    console.error("❌ Error deleting transaction:", error);
+    console.error("Error deleting transaction:", error);
   }
 };
 
-
-// ✅ 获取所有用户
 export const fetchUsers = async () => {
   try {
     const response = await fetch(`${API_URL}/user`);
@@ -75,7 +72,7 @@ export const fetchUsers = async () => {
 
 export const fetchUser = async (userId) => {
   if (!userId) {
-    console.warn("⚠️ fetchUser called with empty userId");
+    console.warn("fetchUser called with empty userId");
     return null;
   }
 
@@ -84,13 +81,11 @@ export const fetchUser = async (userId) => {
     if (!response.ok) throw new Error("Failed to fetch user data");
     return await response.json();
   } catch (error) {
-    console.error("❌ Error fetching user:", error);
+    console.error("Error fetching user:", error);
     return null;
   }
 };
 
-
-// ✅ 更新用户目标金额
 export const updateUserGoal = async (userId, goalAmount) => {
   try {
     const response = await fetch(`${API_URL}/user/${userId}`, {
@@ -108,15 +103,15 @@ export const updateUserGoal = async (userId, goalAmount) => {
 
 export const createUser = async (userName) => {
   if (!userName) {
-    console.warn("⚠️ createUser called with empty userName");
+    console.warn("createUser called with empty userName");
     return null;
   }
 
   try {
-    // 先检查用户是否已存在
+
     const userResponse = await fetch(`${API_URL}/user/${userName}`);
     if (userResponse.ok) {
-      console.warn("⚠️ User already exists, cannot create duplicate user");
+      console.warn("User already exists, cannot create duplicate user");
       return null;
     }
 
@@ -129,7 +124,7 @@ export const createUser = async (userName) => {
     if (!response.ok) throw new Error("Failed to create user");
     return await response.json();
   } catch (error) {
-    console.error("❌ Error creating user:", error);
+    console.error("Error creating user:", error);
     return null;
   }
 };
@@ -137,7 +132,7 @@ export const createUser = async (userName) => {
 
 export const deleteUser = async (userId) => {
   if (!userId) {
-    console.warn("⚠️ deleteUser called with empty userId");
+    console.warn("deleteUser called with empty userId");
     return;
   }
 
@@ -145,7 +140,7 @@ export const deleteUser = async (userId) => {
     const response = await fetch(`${API_URL}/user/${userId}`, { method: "DELETE" });
     if (!response.ok) throw new Error("Failed to delete user");
   } catch (error) {
-    console.error("❌ Error deleting user:", error);
+    console.error("Error deleting user:", error);
   }
 };
 

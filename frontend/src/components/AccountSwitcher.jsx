@@ -16,9 +16,9 @@ const AccountSwitcher = ({ currentUser, onSwitch }) => {
         const users = await fetchUsers();
         const userNames = users.map((user) => user.userName);
         setUserList(userNames);
-        console.log("📌 Loaded users:", userNames);
+        console.log("Loaded users:", userNames);
       } catch (error) {
-        console.error("❌ Error fetching users:", error);
+        console.error("Error fetching users:", error);
       }
     };
 

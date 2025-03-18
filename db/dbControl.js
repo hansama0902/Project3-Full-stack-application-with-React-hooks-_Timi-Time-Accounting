@@ -12,8 +12,8 @@ async function connectDB() {
   if (!db) {
     try {
       await client.connect();
-      console.log("✅ Successfully connected to MongoDB Atlas");
-      db = client.db("TimiTimeAccounting"); // ✅ 确保数据库名称匹配
+      console.log("Successfully connected to MongoDB Atlas");
+      db = client.db("TimiTimeAccounting"); 
     } catch (error) {
       console.error("❌ MongoDB Connection Error:", error);
       process.exit(1);
@@ -22,7 +22,6 @@ async function connectDB() {
   return db;
 }
 
-// ✅ 适配新集合名称
 async function getCollection(name) {
   const database = await connectDB();
   return database.collection(name);

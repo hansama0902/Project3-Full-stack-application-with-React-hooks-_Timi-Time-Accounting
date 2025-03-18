@@ -9,7 +9,7 @@ const useGoal = (userName) => {
     const loadUserGoal = async () => {
       if (!userName) {
         console.warn("⚠️ No user selected, skipping goal fetch.");
-        setGoalAmount(0); // ✅ 用户未选择时重置目标
+        setGoalAmount(0); 
         setLoading(false);
         return;
       }
@@ -19,10 +19,10 @@ const useGoal = (userName) => {
         if (userData && userData.goalAmount !== undefined) {
           setGoalAmount(userData.goalAmount);
         } else {
-          console.warn(`⚠️ No goal found for user: ${userName}`);
+          console.warn(` No goal found for user: ${userName}`);
         }
       } catch (error) {
-        console.error("❌ Error fetching goal:", error);
+        console.error("Error fetching goal:", error);
       } finally {
         setLoading(false);
       }
@@ -38,7 +38,7 @@ const useGoal = (userName) => {
       await updateUserGoal(userName, newGoalAmount);
       setGoalAmount(newGoalAmount);
     } catch (error) {
-      console.error("❌ Error updating goal:", error);
+      console.error("Error updating goal:", error);
     }
   };
 

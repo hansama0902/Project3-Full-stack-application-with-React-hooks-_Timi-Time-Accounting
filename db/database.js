@@ -9,10 +9,10 @@ const client = new MongoClient(uri);
 async function connectDB() {
   try {
     await client.connect();
-    console.log("✅ Successfully connected to MongoDB Atlas");
+    console.log("Successfully connected to MongoDB Atlas");
     return client.db("TimiTimeAccounting");
   } catch (error) {
-    console.error("❌ MongoDB Connection Error:", error);
+    console.error("MongoDB Connection Error:", error);
     process.exit(1);
   }
 }
