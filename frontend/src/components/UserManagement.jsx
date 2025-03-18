@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Form, ListGroup, Alert } from "react-bootstrap";
-import { fetchUsers, createUser, deleteUser } from "../utils/api"; // 连接 API
+import { fetchUsers, createUser, deleteUser } from "../utils/api"; 
 
 const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
   const [users, setUsers] = useState([]);
@@ -78,7 +78,7 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
             Add User
           </Button>
         </Form.Group>
-        
+
         <h5 className="mt-3">Existing Users</h5>
         <ListGroup>
           {users.length > 0 ? (
