@@ -1,40 +1,30 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Card, Button, Form, ProgressBar } from "react-bootstrap";
-import useUser from "../hooks/useUser"; 
+import useGoal from "../hooks/useGoal"; 
 
-const GoalProgress = ({ userId }) => {
-  const { user, handleUpdateGoal, loading } = useUser(userId);
+const GoalProgress = ({ userId, balance }) => {
+  const { goalAmount, handleUpdateGoal, loading } = useGoal(userId);
   const [newGoal, setNewGoal] = useState("");
-  const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    if (user) {
-      setUserName(user?.userName || ""); 
-      setNewGoal(user?.goalAmount || ""); 
-    }
-  }, [user]);
+    setNewGoal(goalAmount || ""); // ✅ 确保 `goalAmount` 变化时更新
+  }, [goalAmount]);
 
-  if (loading) return <p>Loading...</p>;  // ✅ 数据加载中
-  if (!user) return <p>No user data found.</p>;  // ✅ user 为空时提示
+  if (loading) return <p>Loading...</p>;
+  if (!userId) return <p className="text-muted">Please select a user.</p>;
 
-  const progress = user.goalAmount 
-    ? Math.min((Number(user.goalAmount) / 10000) * 100, 100) 
-    : 0; // ✅ 确保 `progress` 始终为数值
+  // ✅ 计算目标进度，使用 `balance` 作为基准值
+  const progress = goalAmount && balance 
+    ? Math.min((balance / Number(goalAmount)) * 100, 100) 
+    : 0; 
 
   return (
     <Card className="p-3 mt-3">
       <h4>Saving Goal</h4>
-      <p><strong>Goal Amount:</strong> ${user.goalAmount || 0}</p>
+      <p><strong>Goal Amount:</strong> ${goalAmount || 0}</p>
       <ProgressBar now={progress} label={`${Math.round(progress)}%`} />
 
-      <Form.Control
-        type="text"
-        placeholder="Enter Your Name"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-        className="mt-2"
-      />
       <Form.Control
         type="number"
         placeholder="Set Goal Amount"
@@ -43,7 +33,7 @@ const GoalProgress = ({ userId }) => {
         className="mt-2"
       />
       <Button 
-        onClick={() => handleUpdateGoal(newGoal)}  // ✅ 只更新目标金额
+        onClick={() => handleUpdateGoal(Number(newGoal))} 
         className="mt-2"
       >
         Set Goal
@@ -54,9 +44,12 @@ const GoalProgress = ({ userId }) => {
 
 GoalProgress.propTypes = {
   userId: PropTypes.string.isRequired,
+  balance: PropTypes.number.isRequired, // ✅ 添加 `balance` 的 PropType 检查
 };
 
 export default GoalProgress;
+
+
 
 
 

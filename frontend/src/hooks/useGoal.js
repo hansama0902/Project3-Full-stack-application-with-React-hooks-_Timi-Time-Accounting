@@ -1,43 +1,52 @@
 import { useState, useEffect } from "react";
-import { fetchUser, updateUserGoal } from "../utils/api"; 
+import { fetchUser, updateUserGoal } from "../utils/api";
 
-const useUser = (userName) => {
-  const [user, setUser] = useState({ userName: "Guest", goalAmount: 5000 });
+const useGoal = (userName) => {
+  const [goalAmount, setGoalAmount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async () => {
-      if (!userName) return; // ✅ 避免 `userName` 为空时报错
+    const loadUserGoal = async () => {
+      if (!userName) {
+        console.warn("⚠️ No user selected, skipping goal fetch.");
+        setGoalAmount(0); // ✅ 用户未选择时重置目标
+        setLoading(false);
+        return;
+      }
 
       try {
         const userData = await fetchUser(userName);
-        if (userData) {
-          setUser(userData);
+        if (userData && userData.goalAmount !== undefined) {
+          setGoalAmount(userData.goalAmount);
         } else {
-          console.warn(`No user found for: ${userName}`);
+          console.warn(`⚠️ No goal found for user: ${userName}`);
         }
       } catch (error) {
-        console.error("Error loading user:", error);
+        console.error("❌ Error fetching goal:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    loadUser();
+    loadUserGoal();
   }, [userName]);
 
   const handleUpdateGoal = async (newGoalAmount) => {
-    if (!userName) return; // ✅ 确保 `userName` 存在
+    if (!userName) return;
 
     try {
       await updateUserGoal(userName, newGoalAmount);
-      setUser((prev) => ({ ...prev, goalAmount: newGoalAmount }));
+      setGoalAmount(newGoalAmount);
     } catch (error) {
-      console.error("Error updating goal:", error);
+      console.error("❌ Error updating goal:", error);
     }
   };
 
-  return { user, handleUpdateGoal };
+  return { goalAmount, handleUpdateGoal, loading };
 };
 
-export default useUser;
+export default useGoal;
+
 
 
 

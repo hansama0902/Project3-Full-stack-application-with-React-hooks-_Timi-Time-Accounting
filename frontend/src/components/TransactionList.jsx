@@ -1,29 +1,28 @@
-import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Table, Button } from "react-bootstrap";
 
-const TransactionList = ({ transactions, onDelete }) => {
-  useEffect(() => {
-    console.log("📌 交易列表接收到的数据:", transactions);
-  }, [transactions]);
+const TransactionList = ({ transactions, onDelete, loading }) => {
+  if (loading) return <p>Loading transactions...</p>;
 
   return (
     <div className="mt-4">
       <h3>Transaction History</h3>
-      <Table striped bordered hover responsive className="mt-3">
-        <thead className="table-dark">
-          <tr>
-            <th>Type</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.length > 0 ? (
-            transactions.map((transaction) => (
+      {transactions.length === 0 ? (
+        <p className="text-danger">⚠️ No Transactions Found</p>
+      ) : (
+        <Table striped bordered hover responsive className="mt-3">
+          <thead className="table-dark">
+            <tr>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactions.map((transaction) => (
               <tr key={transaction._id}>
                 <td className={transaction.type === "income" ? "text-success" : "text-danger"}>
                   {transaction.type === "income" ? "[Income]" : "[Expense]"}
@@ -40,14 +39,10 @@ const TransactionList = ({ transactions, onDelete }) => {
                   </Button>
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="6" className="text-center">No Transactions Found</td>
-            </tr>
-          )}
-        </tbody>
-      </Table>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 };
@@ -55,7 +50,7 @@ const TransactionList = ({ transactions, onDelete }) => {
 TransactionList.propTypes = {
   transactions: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default TransactionList;
-

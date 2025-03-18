@@ -1,31 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Dropdown, Button, Form, Modal } from "react-bootstrap";
+import { Dropdown, Button } from "react-bootstrap";
+import UserManagement from "./UserManagement";
+import { fetchUsers} from "../utils/api";
 
-const AccountSwitcher = ({ userList = [], currentUser = "Guest", onSwitch, onManageUsers }) => {
-  const [selectedUser, setSelectedUser] = useState(currentUser);
-  const [showModal, setShowModal] = useState(false);
-  const [newUser, setNewUser] = useState("");
+const AccountSwitcher = ({ currentUser, onSwitch }) => {
+  const [userList, setUserList] = useState([]);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(currentUser || "Please switch your account");
+ 
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        const users = await fetchUsers();
+        const userNames = users.map((user) => user.userName);
+        setUserList(userNames);
+        console.log("📌 Loaded users:", userNames);
+      } catch (error) {
+        console.error("❌ Error fetching users:", error);
+      }
+    };
+
+    loadUsers();
+  }, []);
   const handleSwitch = (user) => {
     setSelectedUser(user);
     onSwitch(user);
   };
-
-  const handleAddUser = () => {
-    if (newUser.trim() !== "" && !userList.includes(newUser)) {
-      onManageUsers([...userList, newUser]);
-      setNewUser("");
-      setShowModal(false);
-    }
-  };
-
-  const handleDeleteUser = (user) => {
-    if (userList.length > 1) {
-      onManageUsers(userList.filter(u => u !== user));
-    }
-  };
-
   return (
     <div className="d-flex align-items-center mb-3">
       <Dropdown>
@@ -42,41 +44,22 @@ const AccountSwitcher = ({ userList = [], currentUser = "Guest", onSwitch, onMan
           )}
         </Dropdown.Menu>
       </Dropdown>
-
-      <Button variant="outline-secondary" className="ms-2" onClick={() => setShowModal(true)}>
+      <Button variant="secondary" onClick={() => setShowUserModal(true)}>
         Manage Users
       </Button>
-
-      {/* ✅ 账户管理模态框，修复 `ref` 问题 */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} enforceFocus={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Manage Accounts</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group>
-            <Form.Label>Add New User</Form.Label>
-            <Form.Control
-              type="text"
-              value={newUser}
-              onChange={(e) => setNewUser(e.target.value)}
-              placeholder="Enter username"
-            />
-            <Button className="mt-2" onClick={handleAddUser}>Add User</Button>
-          </Form.Group>
-        </Modal.Body>
-      </Modal>
+      <UserManagement show={showUserModal} onClose={() => setShowUserModal(false)} onUserChange={onSwitch} />
     </div>
   );
 };
 
 AccountSwitcher.propTypes = {
-  userList: PropTypes.arrayOf(PropTypes.string),
-  currentUser: PropTypes.string,
+  currentUser: PropTypes.string.isRequired,
   onSwitch: PropTypes.func.isRequired,
-  onManageUsers: PropTypes.func.isRequired,
 };
 
 export default AccountSwitcher;
+
+
 
 
 

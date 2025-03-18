@@ -1,40 +1,32 @@
 import { useState, useEffect } from "react";
-import { fetchUser, updateUserGoal } from "../utils/api"; 
+import { fetchUsers } from "../utils/api";
 
-const useUser = (userName) => {
-  const [user, setUser] = useState(null);  // ✅ 初始状态为 `null`
-  const [loading, setLoading] = useState(true); // ✅ 增加 `loading` 变量
+const useUser = () => {
+  const [userList, setUserList] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const loadUser = async () => {
+    const loadUsers = async () => {
       try {
-        const userData = await fetchUser(userName);
-        setUser(userData);
+        const users = await fetchUsers();
+        const userNames = users.map(user => user.userName);
+        setUserList(userNames);       
+        // if (userNames.length > 0) {
+        //   setCurrentUser(userNames[0]); // ✅ 确保第一个用户被正确选择
+        //   console.log("✅ Default user set:", userNames[0]);
+        // }
       } catch (error) {
-        console.error("Error loading user:", error);
-      } finally {
-        setLoading(false); 
+        console.error("❌ Error fetching users:", error);
       }
     };
+    loadUsers();
+  }, []);
 
-    if (userName) {
-      loadUser();
-    } else {
-      setLoading(false);
-    }
-  }, [userName]);
-
-  const handleUpdateGoal = async (newGoalAmount) => {
-    try {
-      await updateUserGoal(userName, newGoalAmount);
-      setUser((prev) => prev ? { ...prev, goalAmount: newGoalAmount } : prev);
-    } catch (error) {
-      console.error("Error updating goal:", error);
-    }
-  };
-
-  return { user, handleUpdateGoal, loading };
+  return { userList, currentUser, setCurrentUser };
 };
 
+
 export default useUser;
+
+
 
