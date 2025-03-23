@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCollection } from "../db/dbControl.js";
+import { getCollection } from "../db/database.js"; 
 
 const router = Router();
 
