@@ -39,13 +39,24 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "userName is required" });
     }
 
+    const userCollection = await getCollection("user");
+
+    const existing = await userCollection.findOne({ userName: { $regex: new RegExp(`^${userName}$`, "i") } });
+    if (existing) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+
     const newUser = { userName, goalAmount: goalAmount || 0 };
+
+    await userCollection.insertOne(newUser);
+
     res.status(201).json({ message: "User added successfully", user: newUser });
   } catch (error) {
     console.error("Error inserting user:", error);
     res.status(500).json({ message: "Failed to insert user" });
   }
 });
+
 
 // PUT 
 router.put("/:userName", async (req, res) => {

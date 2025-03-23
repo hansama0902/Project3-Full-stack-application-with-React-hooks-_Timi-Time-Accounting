@@ -41,7 +41,7 @@ const App = () => {
           {loading ? (
             <p className="text-center mt-3">⏳ Loading transactions...</p>
           ) : transactions.length === 0 ? (
-            <p className="text-muted text-center mt-3">📭 No transactions found.</p>
+            <p className="text-muted text-center mt-3">No transactions found.</p>
           ) : (
             <TransactionList transactions={transactions} onDelete={onTransactionDeleted} />
           )}

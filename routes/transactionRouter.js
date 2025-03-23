@@ -16,22 +16,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET
+// GET transactions for a user
 router.get("/user/:userName", async (req, res) => {
   try {
     const transactionCollection = await getCollection("transaction");
     const transactions = await transactionCollection.find({ userName: req.params.userName }).toArray();
-
-    if (!transactions.length) {
-      return res.status(404).json({ message: `No transactions found for user: ${req.params.userName}` });
-    }
-
     res.json(transactions);
   } catch (error) {
     console.error("Error fetching user transactions:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 
 // POST 
 router.post("/", async (req, res) => {

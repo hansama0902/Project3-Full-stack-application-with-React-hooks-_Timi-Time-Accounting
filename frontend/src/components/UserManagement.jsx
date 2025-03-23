@@ -25,21 +25,39 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
     setTimeout(() => setSuccessMessage(""), 2000); 
   };
 
+  // const handleAddUser = async () => {
+  //   if (newUser.trim() === "" || users.includes(newUser)) return;
+  //   try {
+  //     await createUser(newUser);
+      
+  //     const updatedUsersData = await fetchUsers();
+  //     const updatedUsers = updatedUsersData.map((u) => u.userName);
+  //     setUsers(updatedUsers);
+      
+  //     showSuccessMessage(`User "${newUser}" added successfully!`);
+  //     setNewUser("");
+  //   } catch (error) {
+  //     console.error("Error adding user:", error);
+  //   }
+  // };
   const handleAddUser = async () => {
     if (newUser.trim() === "" || users.includes(newUser)) return;
     try {
       await createUser(newUser);
-      
+  
       const updatedUsersData = await fetchUsers();
       const updatedUsers = updatedUsersData.map((u) => u.userName);
       setUsers(updatedUsers);
       
+      onUserChange(newUser);
+  
       showSuccessMessage(`User "${newUser}" added successfully!`);
       setNewUser("");
     } catch (error) {
       console.error("Error adding user:", error);
     }
   };
+  
 
   const handleDeleteUser = async (user) => {
     try {
@@ -91,7 +109,7 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
               </ListGroup.Item>
             ))
           ) : (
-            <p className="text-muted text-center mt-2">🚀 Please create a new user.</p>
+            <p className="text-muted text-center mt-2">Please create a new user.</p>
           )}
         </ListGroup>
       </Modal.Body>

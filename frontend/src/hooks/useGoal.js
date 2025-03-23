@@ -8,7 +8,7 @@ const useGoal = (userName) => {
   useEffect(() => {
     const loadUserGoal = async () => {
       if (!userName) {
-        console.warn("⚠️ No user selected, skipping goal fetch.");
+        console.warn("No user selected, skipping goal fetch.");
         setGoalAmount(0); 
         setLoading(false);
         return;
