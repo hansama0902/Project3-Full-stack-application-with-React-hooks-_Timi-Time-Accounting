@@ -1,7 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { Button } from "react-bootstrap";
 import "../stylesheets/FinanceChart.css";
@@ -31,7 +37,7 @@ const FinanceChart = ({ data }) => {
   return (
     <div className="finance-chart-container mt-4">
       <h3 className="finance-chart-title">Finance Chart</h3>
-  
+
       <div className="finance-chart-controls">
         <Button
           variant={chartType === "income" ? "success" : "outline-success"}
@@ -46,7 +52,7 @@ const FinanceChart = ({ data }) => {
           Show Expenses
         </Button>
       </div>
-  
+
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={aggregatedData}>
           <XAxis dataKey="category" />
@@ -61,18 +67,15 @@ const FinanceChart = ({ data }) => {
       </ResponsiveContainer>
     </div>
   );
-}
+};
 FinanceChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       category: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
       type: PropTypes.oneOf(["income", "expense"]).isRequired,
-    })
+    }),
   ).isRequired,
 };
 
 export default FinanceChart;
-
-
-

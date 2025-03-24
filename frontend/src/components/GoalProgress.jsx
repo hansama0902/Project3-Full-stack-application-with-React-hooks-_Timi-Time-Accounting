@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Card, Button, Form, ProgressBar } from "react-bootstrap";
 import useGoal from "../hooks/useGoal";
-import "../stylesheets/GoalProgress.css"; 
+import "../stylesheets/GoalProgress.css";
 
 const GoalProgress = ({ userId, balance }) => {
   const { goalAmount, handleUpdateGoal, loading } = useGoal(userId);
@@ -59,9 +59,3 @@ GoalProgress.propTypes = {
 };
 
 export default GoalProgress;
-
-
-
-
-
-

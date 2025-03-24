@@ -9,7 +9,7 @@ const useGoal = (userName) => {
     const loadUserGoal = async () => {
       if (!userName) {
         console.warn("No user selected, skipping goal fetch.");
-        setGoalAmount(0); 
+        setGoalAmount(0);
         setLoading(false);
         return;
       }
@@ -46,10 +46,3 @@ const useGoal = (userName) => {
 };
 
 export default useGoal;
-
-
-
-
-
-
-

@@ -22,4 +22,3 @@ async function getCollection(name) {
 }
 
 export { connectDB, getCollection };
-

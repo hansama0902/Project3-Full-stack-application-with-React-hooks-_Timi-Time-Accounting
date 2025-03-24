@@ -21,4 +21,3 @@ const useDashboard = (transactions) => {
 };
 
 export default useDashboard;
-

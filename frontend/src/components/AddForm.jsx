@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Form,
-  ToggleButtonGroup,
-  ToggleButton,
-} from "react-bootstrap";
-import "../stylesheets/AddForm.css"; 
+import { Button, Form, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import "../stylesheets/AddForm.css";
 
 const AddForm = ({
   onTransactionAdded,
@@ -79,18 +74,10 @@ const AddForm = ({
           value={isIncome}
           onChange={(val) => setIsIncome(val)}
         >
-          <ToggleButton
-            id="tbg-radio-income"
-            variant="success"
-            value={true}
-          >
+          <ToggleButton id="tbg-radio-income" variant="success" value={true}>
             Income
           </ToggleButton>
-          <ToggleButton
-            id="tbg-radio-expense"
-            variant="danger"
-            value={false}
-          >
+          <ToggleButton id="tbg-radio-expense" variant="danger" value={false}>
             Expense
           </ToggleButton>
         </ToggleButtonGroup>
@@ -151,8 +138,8 @@ const AddForm = ({
         {editingTransaction
           ? "Update Transaction"
           : isIncome
-          ? "Add Income"
-          : "Add Expense"}
+            ? "Add Income"
+            : "Add Expense"}
       </Button>
     </Form>
   );
@@ -166,7 +153,3 @@ AddForm.propTypes = {
 };
 
 export default AddForm;
-
-
-
-

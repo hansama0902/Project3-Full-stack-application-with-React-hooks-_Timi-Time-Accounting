@@ -24,7 +24,7 @@ const App = () => {
 
   const [editingTransaction, setEditingTransaction] = useState(null);
 
-  const addFormRef = useRef(null); 
+  const addFormRef = useRef(null);
 
   const onTransactionAdded = async (newTransaction) => {
     await handleAddTransaction(newTransaction);
@@ -42,7 +42,7 @@ const App = () => {
 
   const onTransactionEdit = (transaction) => {
     setEditingTransaction(transaction);
-    addFormRef.current?.scrollIntoView({ behavior: "smooth" }); 
+    addFormRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -61,14 +61,18 @@ const App = () => {
         </p>
       ) : (
         <>
-          <GoalProgress key={currentUser} userId={currentUser} balance={balance} />
+          <GoalProgress
+            key={currentUser}
+            userId={currentUser}
+            balance={balance}
+          />
           <Dashboard
             key={transactions.length}
             totalIncome={totalIncome}
             totalExpenses={totalExpenses}
             balance={balance}
           />
-          <div ref={addFormRef}> 
+          <div ref={addFormRef}>
             <AddForm
               onTransactionAdded={onTransactionAdded}
               onTransactionUpdated={onTransactionUpdated}
@@ -80,12 +84,14 @@ const App = () => {
           {loading ? (
             <p className="text-center mt-3">⏳ Loading transactions...</p>
           ) : transactions.length === 0 ? (
-            <p className="text-muted text-center mt-3">No transactions found.</p>
+            <p className="text-muted text-center mt-3">
+              No transactions found.
+            </p>
           ) : (
             <TransactionList
               transactions={transactions}
               onDelete={onTransactionDeleted}
-              onEdit={onTransactionEdit} 
+              onEdit={onTransactionEdit}
             />
           )}
 
@@ -97,13 +103,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-

@@ -9,8 +9,8 @@ const useUser = () => {
     const loadUsers = async () => {
       try {
         const users = await fetchUsers();
-        const userNames = users.map(user => user.userName);
-        setUserList(userNames);       
+        const userNames = users.map((user) => user.userName);
+        setUserList(userNames);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -21,8 +21,4 @@ const useUser = () => {
   return { userList, currentUser, setCurrentUser };
 };
 
-
 export default useUser;
-
-
-

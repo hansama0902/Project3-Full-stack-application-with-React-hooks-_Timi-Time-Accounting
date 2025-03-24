@@ -13,7 +13,7 @@ async function connectDB() {
     try {
       await client.connect();
       console.log("Successfully connected to MongoDB Atlas");
-      db = client.db("TimiTimeAccounting"); 
+      db = client.db("TimiTimeAccounting");
     } catch (error) {
       console.error("❌ MongoDB Connection Error:", error);
       process.exit(1);

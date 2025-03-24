@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Form, ListGroup, Alert } from "react-bootstrap";
-import { fetchUsers, createUser, deleteUser } from "../utils/api"; 
+import { fetchUsers, createUser, deleteUser } from "../utils/api";
 
 const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
   const [users, setUsers] = useState([]);
@@ -22,26 +22,25 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
 
   const showSuccessMessage = (message) => {
     setSuccessMessage(message);
-    setTimeout(() => setSuccessMessage(""), 2000); 
+    setTimeout(() => setSuccessMessage(""), 2000);
   };
   const handleAddUser = async () => {
     if (newUser.trim() === "" || users.includes(newUser)) return;
     try {
       await createUser(newUser);
-  
+
       const updatedUsersData = await fetchUsers();
       const updatedUsers = updatedUsersData.map((u) => u.userName);
       setUsers(updatedUsers);
-      
+
       onUserChange(newUser);
-  
+
       showSuccessMessage(`User "${newUser}" added successfully!`);
       setNewUser("");
     } catch (error) {
       console.error("Error adding user:", error);
     }
   };
-  
 
   const handleDeleteUser = async (user) => {
     try {
@@ -50,7 +49,7 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
       const updatedUsersData = await fetchUsers();
       const updatedUsers = updatedUsersData.map((u) => u.userName);
       setUsers(updatedUsers);
-      
+
       showSuccessMessage(`User "${user}" deleted successfully!`);
 
       if (user === currentUser) {
@@ -85,15 +84,24 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
         <ListGroup>
           {users.length > 0 ? (
             users.map((user) => (
-              <ListGroup.Item key={user} className="d-flex justify-content-between align-items-center">
+              <ListGroup.Item
+                key={user}
+                className="d-flex justify-content-between align-items-center"
+              >
                 <span>{user}</span>
-                <Button variant="danger" size="sm" onClick={() => handleDeleteUser(user)}>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDeleteUser(user)}
+                >
                   Delete
                 </Button>
               </ListGroup.Item>
             ))
           ) : (
-            <p className="text-muted text-center mt-2">Please create a new user.</p>
+            <p className="text-muted text-center mt-2">
+              Please create a new user.
+            </p>
           )}
         </ListGroup>
       </Modal.Body>
@@ -109,5 +117,3 @@ UserManagement.propTypes = {
 };
 
 export default UserManagement;
-
-

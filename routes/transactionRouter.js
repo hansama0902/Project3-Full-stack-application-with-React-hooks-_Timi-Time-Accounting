@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { ObjectId } from "mongodb";
-import { getCollection } from "../db/database.js"; 
+import { getCollection } from "../db/database.js";
 
 const router = Router();
 
-// GET 
+// GET
 router.get("/", async (req, res) => {
   try {
     const transactionCollection = await getCollection("transaction");
@@ -20,7 +20,9 @@ router.get("/", async (req, res) => {
 router.get("/user/:userName", async (req, res) => {
   try {
     const transactionCollection = await getCollection("transaction");
-    const transactions = await transactionCollection.find({ userName: req.params.userName }).toArray();
+    const transactions = await transactionCollection
+      .find({ userName: req.params.userName })
+      .toArray();
     res.json(transactions);
   } catch (error) {
     console.error("Error fetching user transactions:", error);
@@ -28,7 +30,7 @@ router.get("/user/:userName", async (req, res) => {
   }
 });
 
-// POST 
+// POST
 router.post("/", async (req, res) => {
   try {
     const { amount, category, description, type, userName, date } = req.body;
@@ -38,12 +40,12 @@ router.post("/", async (req, res) => {
     }
 
     const newTransaction = {
-      amount: Number(amount), 
+      amount: Number(amount),
       category,
       description,
       type,
       userName,
-      date: date || new Date().toISOString(), 
+      date: date || new Date().toISOString(),
     };
 
     const transactionCollection = await getCollection("transaction");
@@ -90,7 +92,7 @@ router.put("/:id", async (req, res) => {
     const result = await collection.findOneAndUpdate(
       { _id },
       { $set: updatedData },
-      { returnDocument: "after" }
+      { returnDocument: "after" },
     );
     res.status(200).json(result.value || { ...updatedData, _id });
   } catch (err) {
@@ -99,7 +101,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE 
+// DELETE
 router.delete("/:id", async (req, res) => {
   try {
     const transactionCollection = await getCollection("transaction");
@@ -108,7 +110,9 @@ router.delete("/:id", async (req, res) => {
       return res.status(400).json({ message: "Invalid transaction ID" });
     }
 
-    const result = await transactionCollection.deleteOne({ _id: new ObjectId(req.params.id) });
+    const result = await transactionCollection.deleteOne({
+      _id: new ObjectId(req.params.id),
+    });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Transaction not found" });
@@ -122,5 +126,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
-
-

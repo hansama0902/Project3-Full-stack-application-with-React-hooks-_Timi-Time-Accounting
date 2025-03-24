@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCollection } from "../db/database.js"; 
+import { getCollection } from "../db/database.js";
 
 const router = Router();
 
@@ -14,12 +14,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET 
+// GET
 router.get("/:userName", async (req, res) => {
   try {
     const userCollection = await getCollection("user");
-    
-    const user = await userCollection.findOne({ userName: { $regex: new RegExp(`^${req.params.userName}$`, "i") } });
+
+    const user = await userCollection.findOne({
+      userName: { $regex: new RegExp(`^${req.params.userName}$`, "i") },
+    });
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -41,7 +43,9 @@ router.post("/", async (req, res) => {
 
     const userCollection = await getCollection("user");
 
-    const existing = await userCollection.findOne({ userName: { $regex: new RegExp(`^${userName}$`, "i") } });
+    const existing = await userCollection.findOne({
+      userName: { $regex: new RegExp(`^${userName}$`, "i") },
+    });
     if (existing) {
       return res.status(409).json({ message: "User already exists" });
     }
@@ -57,8 +61,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-
-// PUT 
+// PUT
 router.put("/:userName", async (req, res) => {
   try {
     const userCollection = await getCollection("user");
@@ -69,8 +72,8 @@ router.put("/:userName", async (req, res) => {
     }
 
     const result = await userCollection.updateOne(
-      { userName: { $regex: new RegExp(`^${req.params.userName}$`, "i") } }, 
-      { $set: { goalAmount: Number(goalAmount) } }
+      { userName: { $regex: new RegExp(`^${req.params.userName}$`, "i") } },
+      { $set: { goalAmount: Number(goalAmount) } },
     );
 
     if (result.matchedCount === 0) {
@@ -88,7 +91,9 @@ router.put("/:userName", async (req, res) => {
 router.delete("/:userName", async (req, res) => {
   try {
     const userCollection = await getCollection("user");
-    const result = await userCollection.deleteOne({ userName: { $regex: new RegExp(`^${req.params.userName}$`, "i") } });
+    const result = await userCollection.deleteOne({
+      userName: { $regex: new RegExp(`^${req.params.userName}$`, "i") },
+    });
 
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "User not found" });
@@ -102,7 +107,3 @@ router.delete("/:userName", async (req, res) => {
 });
 
 export default router;
-
-
-
-

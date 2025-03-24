@@ -7,7 +7,6 @@ import { dirname } from "path";
 import transactionRouter from "./routes/transactionRouter.js";
 import userRouter from "./routes/userRouter.js";
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

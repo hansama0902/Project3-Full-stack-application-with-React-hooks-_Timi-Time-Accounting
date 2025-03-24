@@ -26,21 +26,33 @@ const TransactionList = ({ transactions, onDelete, onEdit, loading }) => {
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction._id}>
-                <td className={transaction.type === "income" ? "text-success" : "text-danger"}>
+                <td
+                  className={
+                    transaction.type === "income"
+                      ? "text-success"
+                      : "text-danger"
+                  }
+                >
                   {transaction.type === "income" ? "[Income]" : "[Expense]"}
                 </td>
                 <td>{transaction.category}</td>
                 <td>{transaction.description}</td>
                 <td
                   className={`transaction-amount ${
-                    transaction.type === "income" ? "text-success" : "text-danger"
+                    transaction.type === "income"
+                      ? "text-success"
+                      : "text-danger"
                   }`}
                 >
                   {transaction.type === "income"
                     ? `+ $${transaction.amount}`
                     : `- $${transaction.amount}`}
                 </td>
-                <td>{transaction.date ? new Date(transaction.date).toLocaleDateString() : "N/A"}</td>
+                <td>
+                  {transaction.date
+                    ? new Date(transaction.date).toLocaleDateString()
+                    : "N/A"}
+                </td>
                 <td>
                   <div className="transaction-actions">
                     <Button
@@ -76,5 +88,3 @@ TransactionList.propTypes = {
 };
 
 export default TransactionList;
-
-

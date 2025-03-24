@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { fetchTransactions, deleteTransaction, createTransaction, updateTransaction } from "../utils/api";
-
+import {
+  fetchTransactions,
+  deleteTransaction,
+  createTransaction,
+  updateTransaction,
+} from "../utils/api";
 
 const useTransactions = (userName) => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [successMessage, setSuccessMessage] = useState(""); 
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     if (!userName) {
@@ -31,13 +35,13 @@ const useTransactions = (userName) => {
     };
 
     loadTransactions();
-  }, [userName]); 
+  }, [userName]);
 
   const handleDeleteTransaction = async (transactionId) => {
     try {
       await deleteTransaction(transactionId);
-      setTransactions((prev) => prev.filter((t) => t._id !== transactionId)); 
-      setSuccessMessage("Transaction deleted successfully!"); 
+      setTransactions((prev) => prev.filter((t) => t._id !== transactionId));
+      setSuccessMessage("Transaction deleted successfully!");
       setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
       console.error(" Error deleting transaction:", error);
@@ -48,8 +52,8 @@ const useTransactions = (userName) => {
     try {
       const addedTransaction = await createTransaction(newTransaction);
       if (addedTransaction) {
-        setTransactions((prev) => [...prev, addedTransaction]); 
-        setSuccessMessage("Transaction added successfully!"); 
+        setTransactions((prev) => [...prev, addedTransaction]);
+        setSuccessMessage("Transaction added successfully!");
         setTimeout(() => setSuccessMessage(""), 2000);
       } else {
         console.warn("No transaction was added.");
@@ -60,12 +64,15 @@ const useTransactions = (userName) => {
   };
   const handleUpdateTransaction = async (transactionId, updatedTransaction) => {
     try {
-      const updated = await updateTransaction(transactionId, updatedTransaction);
+      const updated = await updateTransaction(
+        transactionId,
+        updatedTransaction,
+      );
       if (updated) {
         setTransactions((prev) =>
           prev.map((t) =>
-            t._id.toString() === transactionId.toString() ? updated : t
-          )
+            t._id.toString() === transactionId.toString() ? updated : t,
+          ),
         );
         setSuccessMessage("Transaction updated successfully!");
         setTimeout(() => setSuccessMessage(""), 2000);
@@ -76,24 +83,16 @@ const useTransactions = (userName) => {
       console.error("Error updating transaction:", error);
     }
   };
-  
-  
+
   return {
     transactions,
     setTransactions,
     handleDeleteTransaction,
     handleAddTransaction,
-    handleUpdateTransaction, 
+    handleUpdateTransaction,
     loading,
     successMessage,
-  }; 
+  };
 };
 
 export default useTransactions;
-
-
-
-
-
-
-

@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import { Dropdown, Button } from "react-bootstrap";
 import UserManagement from "./UserManagement";
 import { fetchUsers } from "../utils/api";
-import "../stylesheets/AccountSwitcher.css"; 
+import "../stylesheets/AccountSwitcher.css";
 
 const AccountSwitcher = ({ currentUser, onSwitch }) => {
   const [userList, setUserList] = useState([]);
   const [showUserModal, setShowUserModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(currentUser || "Please switch your account");
+  const [selectedUser, setSelectedUser] = useState(
+    currentUser || "Please switch your account",
+  );
 
   const loadUsers = async () => {
     try {
@@ -76,14 +78,3 @@ AccountSwitcher.propTypes = {
 };
 
 export default AccountSwitcher;
-
-
-
-
-
-
-
-
-
-
-

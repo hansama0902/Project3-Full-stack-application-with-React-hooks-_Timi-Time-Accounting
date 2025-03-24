@@ -60,7 +60,7 @@ export const updateTransaction = async (transactionId, updatedData) => {
       throw new Error("Failed to update transaction");
     }
 
-    return await response.json(); 
+    return await response.json();
   } catch (error) {
     console.error("Error updating transaction:", error);
     return null;
@@ -74,7 +74,9 @@ export const deleteTransaction = async (id) => {
   }
 
   try {
-    const response = await fetch(`${API_URL}/transaction/${id}`, { method: "DELETE" });
+    const response = await fetch(`${API_URL}/transaction/${id}`, {
+      method: "DELETE",
+    });
     if (!response.ok) throw new Error("Failed to delete transaction");
   } catch (error) {
     console.error("Error deleting transaction:", error);
@@ -130,7 +132,6 @@ export const createUser = async (userName) => {
   }
 
   try {
-
     const response = await fetch(`${API_URL}/user`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -145,8 +146,6 @@ export const createUser = async (userName) => {
   }
 };
 
-
-
 export const deleteUser = async (userId) => {
   if (!userId) {
     console.warn("deleteUser called with empty userId");
@@ -154,13 +153,11 @@ export const deleteUser = async (userId) => {
   }
 
   try {
-    const response = await fetch(`${API_URL}/user/${userId}`, { method: "DELETE" });
+    const response = await fetch(`${API_URL}/user/${userId}`, {
+      method: "DELETE",
+    });
     if (!response.ok) throw new Error("Failed to delete user");
   } catch (error) {
     console.error("Error deleting user:", error);
   }
 };
-
-
-
-

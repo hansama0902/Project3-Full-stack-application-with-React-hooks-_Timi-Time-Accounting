@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Card, Container, Row, Col } from "react-bootstrap";
-import "../stylesheets/Dashboard.css"; 
+import "../stylesheets/Dashboard.css";
 
 const Dashboard = ({ totalIncome, totalExpenses }) => {
   const balance = totalIncome - totalExpenses;
@@ -49,4 +49,3 @@ Dashboard.propTypes = {
 };
 
 export default Dashboard;
-
