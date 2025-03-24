@@ -23,3 +23,33 @@ Timi Time Accounting is a full-stack web application designed for personal and f
 
 ![Screenshot4](https://raw.githubusercontent.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/1978fc45719c795f8517db4f77c778ff96d647ad/screenshot/screen4.png)
 
+---
+### Prerequisites 
+---
+### Prerequisites  
+
+- Node.js (v14 or higher)
+- React
+- mongodb Atlas
+- npm 
+- Git
+- Vercel
+
+
+## Technologies Used
+
+- **React (Hooks)**
+- **React Bootstrap 5**
+- **Recharts**
+- **PropTypes**
+- **CSS Modules**
+- **JavaScript**
+- **Node.js**
+- **Express**
+- **MongoDB**
+- **MongoDB Atlas**
+- **Bootstrap 5**
+- **ESLint6 & Prettier for Code Quality**
+- **Vercel**
+
+---
