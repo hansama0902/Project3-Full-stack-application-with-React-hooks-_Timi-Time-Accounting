@@ -147,6 +147,11 @@ Once the server is running:
 - **Vercel**
 
 ---
+
+## Usage of GenAI
+
+
+---
 ## View the project
 
 
