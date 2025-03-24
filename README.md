@@ -147,8 +147,11 @@ Once the server is running:
 - **Vercel**
 
 ---
-### View the project
+## View the project
+
+
 Visit the project at: https://project3-full-stack-application-with-reac-hansama0902s-projects.vercel.app/
+
 ---
 ## License
 
