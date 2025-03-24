@@ -147,7 +147,12 @@ Once the server is running:
 - **Vercel**
 
 ---
+### View the project
+Visit the project at: https://project3-full-stack-application-with-reac-hansama0902s-projects.vercel.app/
+---
+## License
 
+This project is licensed under the **MIT License**.
 
 
 
