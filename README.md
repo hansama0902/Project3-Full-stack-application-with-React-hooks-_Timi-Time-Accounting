@@ -130,6 +130,38 @@ Once the server is running:
 
 
 ---
+
+## Database Schema
+
+The application uses MongoDB with two main collections:
+
+### Collection: `users`
+Stores user profiles and their savings goals.
+
+```json
+{
+  _id: ObjectId,
+  userName: String,
+  goalAmount: Number
+}
+```
+
+### Collection: `transactions`
+Stores individual financial transactions.
+
+```json
+{
+  _id: ObjectId,
+  amount: Number,
+  category: String,
+  description: String,
+  type: "income" | "expense",
+  userName: String,
+  date: String (ISO format)
+}
+```
+---
+
 ## Technologies Used
 
 - **React (Hooks)**
