@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import useUser from "./hooks/useUser";
 import useTransactions from "./hooks/useTransactions";
 import useDashboard from "./hooks/useDashboard";
@@ -8,6 +8,7 @@ import AddForm from "./components/AddForm";
 import TransactionList from "./components/TransactionList";
 import GoalProgress from "./components/GoalProgress";
 import FinanceChart from "./components/FinanceChart";
+import "./stylesheets/AppHeader.css";
 
 const App = () => {
   const { userList, currentUser, setCurrentUser } = useUser();
@@ -21,44 +22,60 @@ const App = () => {
 
   const { totalIncome, totalExpenses, balance } = useDashboard(transactions);
 
-  const [editingTransaction, setEditingTransaction] = useState(null); 
+  const [editingTransaction, setEditingTransaction] = useState(null);
+
+  const addFormRef = useRef(null); 
 
   const onTransactionAdded = async (newTransaction) => {
     await handleAddTransaction(newTransaction);
-    setEditingTransaction(null); 
+    setEditingTransaction(null);
   };
-
 
   const onTransactionUpdated = async (transactionId, updatedData) => {
     await handleUpdateTransaction(transactionId, updatedData);
     setEditingTransaction(null);
   };
 
-
   const onTransactionDeleted = async (transactionId) => {
     await handleDeleteTransaction(transactionId);
   };
 
+  const onTransactionEdit = (transaction) => {
+    setEditingTransaction(transaction);
+    addFormRef.current?.scrollIntoView({ behavior: "smooth" }); 
+  };
+
   return (
     <div className="app-container">
-      <h1>Timi Time Accounting</h1>
+      <h1 className="app-title">Timi Time Accounting</h1>
 
-      <AccountSwitcher userList={userList} currentUser={currentUser} onSwitch={setCurrentUser} />
+      <AccountSwitcher
+        userList={userList}
+        currentUser={currentUser}
+        onSwitch={setCurrentUser}
+      />
 
       {!currentUser ? (
-        <p className="text-muted text-center mt-3">🚀 Please switch your account to view data.</p>
+        <p className="text-muted text-center mt-3">
+          Please switch your account to view data.
+        </p>
       ) : (
         <>
-          <GoalProgress userId={currentUser} balance={balance} />
-
-          <Dashboard totalIncome={totalIncome} totalExpenses={totalExpenses} balance={balance} />
-
-          <AddForm
-            onTransactionAdded={onTransactionAdded}
-            onTransactionUpdated={onTransactionUpdated} 
-            userName={currentUser}
-            editingTransaction={editingTransaction}    
+          <GoalProgress key={currentUser} userId={currentUser} balance={balance} />
+          <Dashboard
+            key={transactions.length}
+            totalIncome={totalIncome}
+            totalExpenses={totalExpenses}
+            balance={balance}
           />
+          <div ref={addFormRef}> 
+            <AddForm
+              onTransactionAdded={onTransactionAdded}
+              onTransactionUpdated={onTransactionUpdated}
+              userName={currentUser}
+              editingTransaction={editingTransaction}
+            />
+          </div>
 
           {loading ? (
             <p className="text-center mt-3">⏳ Loading transactions...</p>
@@ -68,7 +85,7 @@ const App = () => {
             <TransactionList
               transactions={transactions}
               onDelete={onTransactionDeleted}
-              onEdit={(transaction) => setEditingTransaction(transaction)} 
+              onEdit={onTransactionEdit} 
             />
           )}
 
@@ -80,6 +97,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 

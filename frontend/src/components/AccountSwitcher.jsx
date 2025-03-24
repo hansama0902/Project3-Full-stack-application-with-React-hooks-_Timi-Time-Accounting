@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Dropdown, Button } from "react-bootstrap";
 import UserManagement from "./UserManagement";
 import { fetchUsers } from "../utils/api";
+import "../stylesheets/AccountSwitcher.css"; 
 
 const AccountSwitcher = ({ currentUser, onSwitch }) => {
   const [userList, setUserList] = useState([]);
@@ -30,9 +31,11 @@ const AccountSwitcher = ({ currentUser, onSwitch }) => {
   };
 
   return (
-    <div className="d-flex align-items-center mb-3">
-      <Dropdown>
-        <Dropdown.Toggle variant="primary">{selectedUser}</Dropdown.Toggle>
+    <div className="account-switcher">
+      <Dropdown className="account-dropdown">
+        <Dropdown.Toggle variant="primary" className="w-100">
+          {selectedUser}
+        </Dropdown.Toggle>
         <Dropdown.Menu>
           {userList.length > 0 ? (
             userList.map((user) => (
@@ -45,9 +48,15 @@ const AccountSwitcher = ({ currentUser, onSwitch }) => {
           )}
         </Dropdown.Menu>
       </Dropdown>
-      <Button variant="secondary" onClick={() => setShowUserModal(true)}>
+
+      <Button
+        variant="secondary"
+        onClick={() => setShowUserModal(true)}
+        className="account-button"
+      >
         Manage Users
       </Button>
+
       <UserManagement
         show={showUserModal}
         onClose={() => setShowUserModal(false)}
@@ -67,6 +76,7 @@ AccountSwitcher.propTypes = {
 };
 
 export default AccountSwitcher;
+
 
 
 
