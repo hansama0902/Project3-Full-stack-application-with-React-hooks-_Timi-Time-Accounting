@@ -188,6 +188,30 @@ Stores individual financial transactions.
 ## Usage of GenAI
 
 
+**Used ChatGPT 4o for the following use cases and prompts:**
+
+**Use case: Real-time state synchronization after transactions**
+Prompt:
+Dashboard and progress bar don’t update immediately after adding/editing a transaction. I’m using useDashboard() with memoized data—how can I force components to re-render and recalculate values correctly?
+
+⸻
+
+**Use case: Delayed rendering after switching users**
+Prompt:
+After switching accounts via AccountSwitcher, components like GoalProgress and Dashboard sometimes show outdated data. How do I ensure all hooks reset state properly and remove stale data when the user changes?
+
+⸻
+
+**Use case: Designing a RESTful API without Mongoose**
+Prompt:
+I’m building a RESTful API using the native MongoDB driver instead of Mongoose. What are best practices for validating ObjectId, managing schema consistency, and avoiding redundancy in CRUD operations?
+
+⸻
+
+**Use case: Setting up PropTypes in React**
+Prompt:
+How to define PropTypes for my React components to validate incoming props and prevent runtime errors?
+
 ---
 ## View the project
 
