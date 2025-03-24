@@ -34,6 +34,11 @@ const useGoal = (userName) => {
   const handleUpdateGoal = async (newGoalAmount) => {
     if (!userName) return;
 
+    if (newGoalAmount < 0) {
+      alert("Goal amount cannot be negative.");
+      return;
+    }
+
     try {
       await updateUserGoal(userName, newGoalAmount);
       setGoalAmount(newGoalAmount);

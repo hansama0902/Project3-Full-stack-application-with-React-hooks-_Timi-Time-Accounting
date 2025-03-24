@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
       description,
       type,
       userName,
-      date: date || new Date().toISOString(),
+      date: String(date).slice(0, 10),
     };
 
     const transactionCollection = await getCollection("transaction");
@@ -56,6 +56,7 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Failed to insert transaction" });
   }
 });
+
 // PUT
 router.put("/:id", async (req, res) => {
   try {
@@ -86,7 +87,7 @@ router.put("/:id", async (req, res) => {
       description,
       type,
       userName,
-      date,
+      date: String(date).slice(0, 10),
     };
 
     const result = await collection.findOneAndUpdate(
@@ -96,7 +97,7 @@ router.put("/:id", async (req, res) => {
     );
     res.status(200).json(result.value || { ...updatedData, _id });
   } catch (err) {
-    console.error("🔥 Error in PUT /transaction/:id:", err);
+    console.error("Error in PUT /transaction/:id:", err);
     res.status(500).json({ message: "Failed to update transaction" });
   }
 });

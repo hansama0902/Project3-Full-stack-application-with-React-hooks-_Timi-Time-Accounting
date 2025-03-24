@@ -50,9 +50,10 @@ const TransactionList = ({ transactions, onDelete, onEdit, loading }) => {
                 </td>
                 <td>
                   {transaction.date
-                    ? new Date(transaction.date).toLocaleDateString()
+                    ? transaction.date.slice(0, 10).replace(/-/g, "/")
                     : "N/A"}
                 </td>
+
                 <td>
                   <div className="transaction-actions">
                     <Button

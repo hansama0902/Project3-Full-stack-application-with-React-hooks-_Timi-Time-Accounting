@@ -11,10 +11,13 @@ CS5610 Web_Development [Course Page](https://johnguerra.co/classes/webDevelopmen
 Instructor: John Alexis Guerra Gómez [Profile](https://johnguerra.co/)
 
 ---
+
 ## Project Objective
+
 **Timi Time Accounting** is a full-stack web application designed for personal and family financial management, built using Node.js, Express 5, and MongoDB for the backend, and React with hooks for the frontend. The system is client-side rendered, using AJAX to asynchronously interact with the backend API, ensuring a responsive and seamless user experience.
 
 ---
+
 ## Project Screenshot
 
 ![Screenshot1](https://raw.githubusercontent.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/1978fc45719c795f8517db4f77c778ff96d647ad/screenshot/screen1.png)
@@ -26,6 +29,7 @@ Instructor: John Alexis Guerra Gómez [Profile](https://johnguerra.co/)
 ![Screenshot4](https://raw.githubusercontent.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/1978fc45719c795f8517db4f77c778ff96d647ad/screenshot/screen4.png)
 
 ---
+
 ## Description
 
 Timi Time Accounting provides users with an intuitive interface to:
@@ -35,7 +39,9 @@ Timi Time Accounting provides users with an intuitive interface to:
 - View a dashboard summarizing total income, expenses, and balance.
 - Set and monitor savings goals.
 - Visualize financial data through chart Reports.
+
 ---
+
 ## Features
 
 - **Account Management:** Easily switch between different user accounts.
@@ -45,18 +51,20 @@ Timi Time Accounting provides users with an intuitive interface to:
 - **Data Visualization:** Interactive charts to analyze financial trends.
 
 ---
-## Prerequisites 
+
+## Prerequisites
 
 Before running this project locally, ensure you have the following installed:
 
 - Node.js (v14 or higher)
 - React
 - mongodb Atlas
-- npm 
+- npm
 - Git
 - Vercel
 
 ---
+
 ## Installation
 
 Follow these steps to set up the project locally:
@@ -119,15 +127,14 @@ Follow these steps to set up the project locally:
 
    The server will serve both the backend API and the frontend application.
 
-
 ---
+
 ## Usage
 
 Once the server is running:
 
 - Open your web browser and navigate to `http://localhost:3000` to access the application.
 - Use the interface to manage accounts, add transactions, set savings goals, and visualize financial data.
-
 
 ---
 
@@ -136,6 +143,7 @@ Once the server is running:
 The application uses MongoDB with two main collections:
 
 ### Collection: `users`
+
 Stores user profiles and their savings goals.
 
 ```json
@@ -147,6 +155,7 @@ Stores user profiles and their savings goals.
 ```
 
 ### Collection: `transactions`
+
 Stores individual financial transactions.
 
 ```json
@@ -160,6 +169,7 @@ Stores individual financial transactions.
   date: String (ISO format)
 }
 ```
+
 ### 1k synthetic records
 
 ![Screenshot5](https://raw.githubusercontent.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/1978fc45719c795f8517db4f77c778ff96d647ad/screenshot/screen5.png)
@@ -186,25 +196,23 @@ Stores individual financial transactions.
 
 ## Usage of GenAI
 
-
 ---
-## View the project
 
+## View the project
 
 Visit the project at: [project3-full-stack-application-with-reac-hansama0902s-projects.vercel.app/
 ](https://project3-full-stack-application-with-reac-hansama0902s-projects.vercel.app/)
 
 ---
+
 ## Resourse
 
 1.[Video](https://youtu.be/3nr9eM7YlWA)  
 2.[Design Doc](https://github.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/blob/main/Design%20Document/Design%20Document_TimiTimeAccounting%20.pdf)  
-3.[Slides](https://docs.google.com/presentation/d/1sTtyNgll-swiHw4ba4af5vhOjuoBw3gM/edit?usp=sharing&ouid=107145337075758185002&rtpof=true&sd=true) 
+3.[Slides](https://docs.google.com/presentation/d/1sTtyNgll-swiHw4ba4af5vhOjuoBw3gM/edit?usp=sharing&ouid=107145337075758185002&rtpof=true&sd=true)
 
 ---
+
 ## License
 
 This project is licensed under the **MIT License**.
-
-
-
