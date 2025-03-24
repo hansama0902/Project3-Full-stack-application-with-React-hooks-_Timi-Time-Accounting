@@ -227,6 +227,20 @@ I’m building a RESTful API using the native MongoDB driver instead of Mongoose
 Prompt:
 How to define PropTypes for my React components to validate incoming props and prevent runtime errors?
 
+**Use case: Running React frontend with Express backend**  
+Prompt:
+How can I serve a React frontend app through an Express backend in a full-stack project? What are the key steps for setting up static file serving in production?
+
+
+**Use case: Understanding React Hooks**  
+Prompt:
+What are React Hooks, and how do they replace class-based lifecycle methods? Specifically, how are useState, useEffect, and custom hooks used in real-world applications?
+
+**Use case: Generating fake transaction data for testing**  
+Prompt:
+How can I programmatically generate 1000 fake transaction records (with random amount, category, date, type) for testing my accounting app using JavaScript or a script?
+
+
 ---
 ## View the project
 
