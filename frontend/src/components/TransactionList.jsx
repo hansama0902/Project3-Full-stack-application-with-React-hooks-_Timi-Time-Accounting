@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Table, Button } from "react-bootstrap";
 
-const TransactionList = ({ transactions, onDelete, loading }) => {
+const TransactionList = ({ transactions, onDelete, onEdit, loading }) => {
   if (loading) return <p>Loading transactions...</p>;
 
   return (
@@ -34,6 +34,14 @@ const TransactionList = ({ transactions, onDelete, loading }) => {
                 </td>
                 <td>{transaction.date ? new Date(transaction.date).toLocaleDateString() : "N/A"}</td>
                 <td>
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    className="me-2"
+                    onClick={() => onEdit(transaction)}
+                  >
+                    Edit
+                  </Button>
                   <Button variant="danger" size="sm" onClick={() => onDelete(transaction._id)}>
                     Delete
                   </Button>
@@ -50,7 +58,9 @@ const TransactionList = ({ transactions, onDelete, loading }) => {
 TransactionList.propTypes = {
   transactions: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired, 
   loading: PropTypes.bool.isRequired,
 };
 
 export default TransactionList;
+

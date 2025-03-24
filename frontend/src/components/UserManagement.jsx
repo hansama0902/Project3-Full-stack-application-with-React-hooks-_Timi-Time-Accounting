@@ -24,22 +24,6 @@ const UserManagement = ({ show, onClose, onUserChange, currentUser }) => {
     setSuccessMessage(message);
     setTimeout(() => setSuccessMessage(""), 2000); 
   };
-
-  // const handleAddUser = async () => {
-  //   if (newUser.trim() === "" || users.includes(newUser)) return;
-  //   try {
-  //     await createUser(newUser);
-      
-  //     const updatedUsersData = await fetchUsers();
-  //     const updatedUsers = updatedUsersData.map((u) => u.userName);
-  //     setUsers(updatedUsers);
-      
-  //     showSuccessMessage(`User "${newUser}" added successfully!`);
-  //     setNewUser("");
-  //   } catch (error) {
-  //     console.error("Error adding user:", error);
-  //   }
-  // };
   const handleAddUser = async () => {
     if (newUser.trim() === "" || users.includes(newUser)) return;
     try {

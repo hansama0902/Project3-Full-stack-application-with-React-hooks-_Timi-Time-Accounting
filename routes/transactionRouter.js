@@ -28,7 +28,6 @@ router.get("/user/:userName", async (req, res) => {
   }
 });
 
-
 // POST 
 router.post("/", async (req, res) => {
   try {
@@ -47,10 +46,56 @@ router.post("/", async (req, res) => {
       date: date || new Date().toISOString(), 
     };
 
-    res.status(201).json({ message: "Transaction added successfully", transaction: newTransaction });
+    const transactionCollection = await getCollection("transaction");
+    const result = await transactionCollection.insertOne(newTransaction);
+    res.status(201).json({ ...newTransaction, _id: result.insertedId });
   } catch (error) {
     console.error("Error inserting transaction:", error);
     res.status(500).json({ message: "Failed to insert transaction" });
+  }
+});
+// PUT
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const collection = await getCollection("transaction");
+
+    console.log("Received PUT request for ID:", id);
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
+    const _id = new ObjectId(id);
+
+    const existing = await collection.findOne({ _id });
+    if (!existing) {
+      console.warn("ID not found in DB:", _id);
+      return res.status(404).json({ message: "Transaction not found" });
+    } else {
+      console.log("Found transaction before update:", existing);
+    }
+
+    const { amount, category, description, type, userName, date } = req.body;
+
+    const updatedData = {
+      amount: Number(amount),
+      category,
+      description,
+      type,
+      userName,
+      date,
+    };
+
+    const result = await collection.findOneAndUpdate(
+      { _id },
+      { $set: updatedData },
+      { returnDocument: "after" }
+    );
+    res.status(200).json(result.value || { ...updatedData, _id });
+  } catch (err) {
+    console.error("🔥 Error in PUT /transaction/:id:", err);
+    res.status(500).json({ message: "Failed to update transaction" });
   }
 });
 

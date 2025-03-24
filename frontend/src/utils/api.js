@@ -43,7 +43,29 @@ export const createTransaction = async (transaction) => {
     return null;
   }
 };
+export const updateTransaction = async (transactionId, updatedData) => {
+  if (!transactionId) {
+    console.warn("updateTransaction called with empty transactionId");
+    return null;
+  }
 
+  try {
+    const response = await fetch(`${API_URL}/transaction/${transactionId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update transaction");
+    }
+
+    return await response.json(); 
+  } catch (error) {
+    console.error("Error updating transaction:", error);
+    return null;
+  }
+};
 
 export const deleteTransaction = async (id) => {
   if (!id) {
@@ -101,33 +123,6 @@ export const updateUserGoal = async (userId, goalAmount) => {
   }
 };
 
-// export const createUser = async (userName) => {
-//   if (!userName) {
-//     console.warn("createUser called with empty userName");
-//     return null;
-//   }
-
-//   try {
-
-//     const userResponse = await fetch(`${API_URL}/user/${userName}`);
-//     if (userResponse.ok) {
-//       console.warn("User already exists, cannot create duplicate user");
-//       return null;
-//     }
-
-//     const response = await fetch(`${API_URL}/user`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ userName, goalAmount: 5000 }),
-//     });
-
-//     if (!response.ok) throw new Error("Failed to create user");
-//     return await response.json();
-//   } catch (error) {
-//     console.error("Error creating user:", error);
-//     return null;
-//   }
-// };
 export const createUser = async (userName) => {
   if (!userName) {
     console.warn("createUser called with empty userName");
