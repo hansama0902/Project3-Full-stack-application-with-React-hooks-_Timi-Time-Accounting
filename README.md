@@ -167,6 +167,26 @@ Stores individual financial transactions.
 
 ---
 
+### CRUD Operations Overview
+
+The application implements full CRUD (Create, Read, Update, Delete) functionality for both `users` and `transactions` collections:
+
+#### Users Collection
+- **Create:** Users are created via the user management modal using the `createUser` API.
+- **Read:** All users are fetched using the `fetchUsers` API for the account switcher.
+- **Update:** Users can update their savings goal using the `updateUserGoal` API.
+- **Delete:** Users can be deleted from the user management modal via the `deleteUser` API.
+
+#### Transactions Collection
+- **Create:** New income or expense records are added through the `AddForm` using the `createTransaction` API.
+- **Read:** All transactions for the selected user are retrieved using the `fetchTransactions` API.
+- **Update:** Existing transactions can be edited via the `handleUpdateTransaction` function using the `updateTransaction` API.
+- **Delete:** Transactions are deleted using the `deleteTransaction` API when a user clicks the delete button in the transaction list.
+
+
+---
+
+
 ## Technologies Used
 
 - **React (Hooks)**
