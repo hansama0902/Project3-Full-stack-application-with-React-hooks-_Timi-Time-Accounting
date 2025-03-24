@@ -153,6 +153,13 @@ Once the server is running:
 Visit the project at: https://project3-full-stack-application-with-reac-hansama0902s-projects.vercel.app/
 
 ---
+## Resourse
+
+1.[Video](https://youtu.be/3nr9eM7YlWA)  
+2.[Design Doc](https://github.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/blob/main/Design%20Document/Design%20Document_TimiTimeAccounting%20.pdf)  
+3.[Slides](https://docs.google.com/presentation/d/1sTtyNgll-swiHw4ba4af5vhOjuoBw3gM/edit?usp=sharing&ouid=107145337075758185002&rtpof=true&sd=true) 
+
+---
 ## License
 
 This project is licensed under the **MIT License**.
