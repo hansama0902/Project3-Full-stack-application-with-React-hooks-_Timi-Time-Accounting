@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
 import { Button } from "react-bootstrap";
+import "../stylesheets/FinanceChart.css";
 
 const aggregateByCategory = (transactions) => {
   const summary = {};
@@ -28,13 +29,12 @@ const FinanceChart = ({ data }) => {
   const aggregatedData = aggregateByCategory(filteredData);
 
   return (
-    <div className="mt-4">
-      <h3>Finance Chart</h3>
-
-      <div className="d-flex justify-content-center mb-3">
+    <div className="finance-chart-container mt-4">
+      <h3 className="finance-chart-title">Finance Chart</h3>
+  
+      <div className="finance-chart-controls">
         <Button
           variant={chartType === "income" ? "success" : "outline-success"}
-          className="me-2"
           onClick={() => setChartType("income")}
         >
           Show Income
@@ -46,7 +46,7 @@ const FinanceChart = ({ data }) => {
           Show Expenses
         </Button>
       </div>
-
+  
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={aggregatedData}>
           <XAxis dataKey="category" />
@@ -61,8 +61,7 @@ const FinanceChart = ({ data }) => {
       </ResponsiveContainer>
     </div>
   );
-};
-
+}
 FinanceChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
