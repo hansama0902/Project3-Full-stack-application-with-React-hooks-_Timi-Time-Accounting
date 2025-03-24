@@ -14,9 +14,10 @@ const GoalProgress = ({ userId, balance }) => {
   if (loading) return <p>Loading...</p>;
   if (!userId) return <p className="text-muted">Please select a user.</p>;
 
-  const progress = goalAmount && balance 
-    ? Math.min((balance / Number(goalAmount)) * 100, 100) 
-    : 0; 
+  const progress =
+  goalAmount > 0 && balance > 0
+    ? Math.min((balance / Number(goalAmount)) * 100, 100)
+    : 0;
 
   return (
     <Card className="p-3 mt-3">
