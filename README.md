@@ -217,8 +217,6 @@ The application implements full CRUD (Create, Read, Update, Delete) functionalit
 
 ## Usage of GenAI
 
-<<<<<<< HEAD
-=======
 
 **Used ChatGPT 4o for the following use cases and prompts:**
 
@@ -252,8 +250,6 @@ What are React Hooks, and how do they replace class-based lifecycle methods? Spe
 Prompt:
 How can I programmatically generate 1000 fake transaction records (with random amount, category, date, type) for testing my accounting app using JavaScript or a script?
 
-
->>>>>>> 6a7f19fca18d2260654c16d04d0a4f3bf27c48b4
 ---
 
 ## View the project
