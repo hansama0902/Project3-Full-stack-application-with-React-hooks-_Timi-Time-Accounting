@@ -45,7 +45,6 @@ const App = () => {
     addFormRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // 修正日期偏移问题的解析函数
   const parseDateLocal = (dateStr) => new Date(dateStr + "T00:00:00");
 
   const filteredTransactions = transactions.filter((t) => {
