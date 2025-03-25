@@ -174,7 +174,6 @@ Stores individual financial transactions.
 
 ![Screenshot5](https://raw.githubusercontent.com/hansama0902/Project3-Full-stack-application-with-React-hooks-_Timi-Time-Accounting/main/screenshot/screen5.png)
 
-
 ---
 
 ### CRUD Operations Overview
@@ -182,20 +181,20 @@ Stores individual financial transactions.
 The application implements full CRUD (Create, Read, Update, Delete) functionality for both `users` and `transactions` collections:
 
 #### Users Collection
+
 - **Create:** Users are created via the user management modal using the `createUser` API.
 - **Read:** All users are fetched using the `fetchUsers` API for the account switcher.
 - **Update:** Users can update their savings goal using the `updateUserGoal` API.
 - **Delete:** Users can be deleted from the user management modal via the `deleteUser` API.
 
 #### Transactions Collection
+
 - **Create:** New income or expense records are added through the `AddForm` using the `createTransaction` API.
 - **Read:** All transactions for the selected user are retrieved using the `fetchTransactions` API.
 - **Update:** Existing transactions can be edited via the `handleUpdateTransaction` function using the `updateTransaction` API.
 - **Delete:** Transactions are deleted using the `deleteTransaction` API when a user clicks the delete button in the transaction list.
 
-
 ---
-
 
 ## Technologies Used
 
@@ -217,13 +216,11 @@ The application implements full CRUD (Create, Read, Update, Delete) functionalit
 
 ## Usage of GenAI
 
-
 **Used ChatGPT 4o for the following use cases and prompts:**
 
 **Use case: Real-time state synchronization after transactions**  
 Prompt:
 Dashboard and progress bar don’t update immediately after adding/editing a transaction. I’m using useDashboard() with memoized data—how can I force components to re-render and recalculate values correctly?
-
 
 **Use case: Delayed rendering after switching users**  
 Prompt:
@@ -240,7 +237,6 @@ How to define PropTypes for my React components to validate incoming props and p
 **Use case: Running React frontend with Express backend**  
 Prompt:
 How can I serve a React frontend app through an Express backend in a full-stack project? What are the key steps for setting up static file serving in production?
-
 
 **Use case: Understanding React Hooks**  
 Prompt:
